@@ -12,7 +12,6 @@ public class ExceptionMessages {
     public static final String INVALID_FACILITY_NAME = "SportsFacility name cannot be null or empty.";
     public static final String NEGATIVE_CAPACITY = "Facility capacity cannot be a negative number.";
     public static final String ATHLETE_ALREADY_EXISTS = "Athlete with name %s already exist in this facility.";
-
-
+    public static final String INVALID_SPORT_FACILITY = "Invalid SportsFacility.";
 
 }

@@ -5,8 +5,6 @@ import athletics.entity.athlete.Athlete;
 import java.util.Collection;
 
 public interface SportsFacility {
-
-
     void addAthlete(Athlete athlete);
 
     boolean isCompatible(Athlete athlete);
@@ -14,6 +12,4 @@ public interface SportsFacility {
     Collection<Athlete> getAthletes();
 
     String getName();
-
-
 }

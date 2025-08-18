@@ -1,7 +1,6 @@
 package dolphinarium.core;
 
 import dolphinarium.common.Command;
-import dolphinarium.entities.foods.Food;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,8 +8,8 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class EngineImpl implements Engine {
-    private Controller controller;
-    private BufferedReader reader;
+    private final Controller controller;
+    private final BufferedReader reader;
 
     public EngineImpl() {
         this.controller = new ControllerImpl();
@@ -20,7 +19,7 @@ public class EngineImpl implements Engine {
     @Override
     public void run() {
         while (true) {
-            String result = null;
+            String result;
             try {
                 result = processInput();
 
@@ -39,35 +38,19 @@ public class EngineImpl implements Engine {
         String[] tokens = input.split("\\s+");
 
         Command command = Command.valueOf(tokens[0]);
-        String result = null;
+        String result;
         String[] data = Arrays.stream(tokens).skip(1).toArray(String[]::new);
 
-        switch (command) {
-            case AddPool:
-                result = addPool(data);
-                break;
-            case BuyFood:
-                result = buyFood(data);
-                break;
-            case AddFoodToPool:
-                result = addFoodToPool(data);
-                break;
-            case AddDolphin:
-                result = addDolphin(data);
-                break;
-            case FeedDolphins:
-                result = feedDolphins(data);
-                break;
-            case PlayWithDolphins:
-                result = playWithDolphins(data);
-                break;
-            case GetStatistics:
-                result = getStatistics();
-                break;
-            case Exit:
-                result = Command.Exit.name();
-                break;
-        }
+        result = switch (command) {
+            case AddPool -> addPool(data);
+            case BuyFood -> buyFood(data);
+            case AddFoodToPool -> addFoodToPool(data);
+            case AddDolphin -> addDolphin(data);
+            case FeedDolphins -> feedDolphins(data);
+            case PlayWithDolphins -> playWithDolphins(data);
+            case GetStatistics -> getStatistics();
+            case Exit -> Command.Exit.name();
+        };
         return result;
     }
     private String addPool(String[] data) {

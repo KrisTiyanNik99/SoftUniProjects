@@ -9,5 +9,8 @@
         <module name="FurnitureFactory" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FurnitureFactory" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>

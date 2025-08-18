@@ -1,7 +1,6 @@
 package athletics.entity.athlete;
 
 public interface Athlete {
-
     int getStamina();
 
     int getPerformance();

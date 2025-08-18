@@ -11,7 +11,7 @@ public class CompetitionImpl implements Competition {
     @Override
     public List<Athlete> executeCompetition(SportsFacility sportsFacility) {
         List<Athlete> athletes = sportsFacility.getAthletes().stream().toList();
-        boolean isAthleateComplete = false;
+        boolean isAthleteComplete = false;
 
         do {
             for (Athlete athlete : athletes) {
@@ -20,13 +20,13 @@ public class CompetitionImpl implements Competition {
                 }
 
                 if (athlete.getPerformance() >= 5) {
-                    isAthleateComplete = true;
+                    isAthleteComplete = true;
                     break;
                 }
             }
 
-            // athletes.removeIf(e -> e.getStamina() <= 0); !isAthleateComplete && athletes.size() > 0
-        } while (!isAthleateComplete);
+            // athletes.removeIf(e -> e.getStamina() <= 0); !isAthleteComplete && athletes.size() > 0
+        } while (!isAthleteComplete);
 
         return athletes.stream()
                 .sorted(Comparator.comparingInt(Athlete::getPerformance).reversed()

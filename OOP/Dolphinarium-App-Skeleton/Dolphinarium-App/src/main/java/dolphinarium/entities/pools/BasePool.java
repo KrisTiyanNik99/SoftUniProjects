@@ -1,11 +1,12 @@
 package dolphinarium.entities.pools;
 
-import dolphinarium.common.ExceptionMessages;
 import dolphinarium.entities.dolphins.Dolphin;
 import dolphinarium.entities.foods.Food;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static dolphinarium.common.ExceptionMessages.*;
 
 public abstract class BasePool implements Pool {
     private String name;
@@ -25,9 +26,9 @@ public abstract class BasePool implements Pool {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         if (name.isEmpty() || name.isBlank()) {
-            throw new NullPointerException(ExceptionMessages.POOL_NAME_NULL_OR_EMPTY);
+            throw new NullPointerException(POOL_NAME_NULL_OR_EMPTY);
         }
         this.name = name;
     }
@@ -37,7 +38,7 @@ public abstract class BasePool implements Pool {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    protected void setCapacity(int capacity) {
         this.capacity = Math.max(capacity, 0);
     }
 
@@ -54,11 +55,11 @@ public abstract class BasePool implements Pool {
     @Override
     public void addDolphin(Dolphin dolphin) {
         if (dolphins.size() >= capacity) {
-            throw new IllegalArgumentException(ExceptionMessages.NOT_ENOUGH_CAPACITY);
+            throw new IllegalArgumentException(NOT_ENOUGH_CAPACITY);
         }
 
         if (dolphin.getEnergy() <= 0) {
-            throw new IllegalArgumentException(ExceptionMessages.DOLPHIN_ENERGY_BELOW_OR_EQUAL_ZERO);
+            throw new IllegalArgumentException(DOLPHIN_ENERGY_BELOW_OR_EQUAL_ZERO);
         }
 
         dolphins.add(dolphin);

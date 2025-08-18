@@ -1,18 +1,22 @@
 package athletics.entity.athlete;
 
 public class Runner extends BaseAthlete {
+    private static final int STARTER_STAMINA_VALUE = 80;
+    private static final int DECREASE_STAMINA_VALUE = 15;
+    private static final int GET_STAMINA_PER_TRAINING = 10;
+
     public Runner(String name) {
-        super(name, 80);
+        super(name, STARTER_STAMINA_VALUE);
     }
 
     @Override
     public void compete() {
-        setPerformance(getPerformance() + 1);
-        setStamina(getStamina() - 15);
+        setPerformance(getPerformance() + ADD_PERFORMANCE_VALUE);
+        setStamina(getStamina() - DECREASE_STAMINA_VALUE);
     }
 
     @Override
     public void train() {
-        setStamina(getStamina() + 10);
+        setStamina(getStamina() + GET_STAMINA_PER_TRAINING);
     }
 }

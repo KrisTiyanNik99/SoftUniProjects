@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 public class EngineImpl implements Engine {
 
-    private Controller controller;
-    private BufferedReader reader;
+    private final Controller controller;
+    private final BufferedReader reader;
 
     public EngineImpl(Controller controller) {
         this.controller = controller;
@@ -21,7 +21,7 @@ public class EngineImpl implements Engine {
     @Override
     public void run() {
         while (true) {
-            String result = null;
+            String result;
             try {
                 result = processInput();
 
@@ -42,29 +42,17 @@ public class EngineImpl implements Engine {
         String[] tokens = input.split("\\s+");
 
         Command command = Command.valueOf(tokens[0]);
-        String result = null;
+        String result;
         String[] data = Arrays.stream(tokens).skip(1).toArray(String[]::new);
 
-        switch (command) {
-            case AddSportsFacility:
-                result = addSportsFacility(data);
-                break;
-            case AddAthlete:
-                result = addAthlete(data);
-                break;
-            case TrainAthlete:
-                result = trainAthlete(data);
-                break;
-            case StartCompetition:
-                result = startCompetition(data);
-                break;
-            case GetStatistics:
-                result = getStatistics();
-                break;
-            case Exit:
-                result = Command.Exit.name();
-                break;
-        }
+        result = switch (command) {
+            case AddSportsFacility -> addSportsFacility(data);
+            case AddAthlete -> addAthlete(data);
+            case TrainAthlete -> trainAthlete(data);
+            case StartCompetition -> startCompetition(data);
+            case GetStatistics -> getStatistics();
+            case Exit -> Command.Exit.name();
+        };
 
         return result;
     }
@@ -80,9 +68,11 @@ public class EngineImpl implements Engine {
     private String trainAthlete(String[] data) {
         return controller.trainAthlete(data[0], data[1]);
     }
+
     private String startCompetition(String[] data) {
         return controller.startCompetition(data[0]);
     }
+
     private String getStatistics() {
         return controller.getStatistics();
     }

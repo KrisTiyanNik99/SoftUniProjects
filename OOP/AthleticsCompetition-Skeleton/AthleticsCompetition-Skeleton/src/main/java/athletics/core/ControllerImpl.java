@@ -27,7 +27,6 @@ public class ControllerImpl implements Controller {
         competition = new CompetitionImpl();
     }
 
-    //TODO - Implement all methods
     @Override
     public String addSportsFacility(String sportsFacilityName, String sportsFacilityType) {
         SportsFacility currentFacility = sportsFacilityRepository.byName(sportsFacilityName);
@@ -40,7 +39,7 @@ public class ControllerImpl implements Controller {
             case "Track" -> facility = new Track(sportsFacilityName);
             case "JumpingPit" -> facility = new JumpingPit(sportsFacilityName);
             case "ThrowingField" -> facility = new ThrowingField(sportsFacilityName);
-            default -> throw new IllegalArgumentException("Invalid SportsFacility.");
+            default -> throw new IllegalArgumentException(INVALID_SPORT_FACILITY);
         }
 
         sportsFacilityRepository.add(facility);
@@ -50,6 +49,9 @@ public class ControllerImpl implements Controller {
     @Override
     public String addAthlete(String sportsFacilityName, String athleteType, String athleteName) {
         SportsFacility sportsFacility = sportsFacilityRepository.byName(sportsFacilityName);
+        if (sportsFacility == null) {
+            throw new IllegalArgumentException(INVALID_SPORT_FACILITY);
+        }
 
         Athlete athlete;
         switch (athleteType) {
@@ -98,7 +100,7 @@ public class ControllerImpl implements Controller {
         }
 
         List<Athlete> athletes = competition.executeCompetition(sportsFacility);
-        return String.format(COMPETITION_COMPLETED, sportsFacilityName) + formatedList(athletes);
+        return String.format(COMPETITION_COMPLETED, sportsFacilityName) + formattedList(athletes);
     }
 
     @Override
@@ -126,29 +128,10 @@ public class ControllerImpl implements Controller {
         }
 
         return stringBuilder.toString().trim();
-
-
-//        List<SportsFacility> sportsFacilities = sportsFacilityRepository.getCollection().stream().toList();
-//        StringBuilder stringBuilder = new StringBuilder();
-//        for (SportsFacility sportsFacility : sportsFacilities) {
-//            List<Athlete> athletes = sportsFacility.getAthletes()
-//                    .stream()
-//                    .filter(e -> e.getPerformance() > 0)
-//                    .toList();
-//
-//            stringBuilder.append(String.format(STATISTICS_ENTRY, sportsFacility.getName(), sportsFacility.getClass().getSimpleName()));
-//            for (Athlete athlete : athletes) {
-//                stringBuilder.append("Name: ").append(athlete.getName()).append(System.lineSeparator());
-//                stringBuilder.append("Stamina left: ").append(athlete.getStamina()).append(System.lineSeparator());
-//                stringBuilder.append("Performance: ").append(athlete.getPerformance()).append(System.lineSeparator());
-//            }
-//        }
-//
-//        return stringBuilder.toString();
     }
 
 
-    private String formatedList(List<Athlete> athletes) {
+    private String formattedList(List<Athlete> athletes) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < athletes.size(); i++) {
             sb.append(i + 1).append(" place: ").append(athletes.get(i).getName()).append(" - ")

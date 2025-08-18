@@ -1,7 +1,6 @@
 package furnitureFactory.common;
 
 public class ExceptionMessages {
-
     public static final String FACTORY_NAME_NULL_OR_EMPTY = "Factory name cannot be null or empty.";
     public static final String FACTORY_EXISTS = "Factory with this name already exists.";
     public static final String FACTORY_DO_NOT_PRODUCED = "This time %s factory did not produce anything.";
@@ -18,4 +17,6 @@ public class ExceptionMessages {
     public static final String NO_WOOD_FOUND = "There is no %s in wood repository.";
     public static final String INVALID_WOOD_TYPE = "Invalid wood type.";
     public static final String THERE_ARE_NO_WORKSHOPS = "There are no added workshops in %s factory to produce furniture.";
+    public static final String INVALID_WOOD = "Wood cannot be null.";
+    public static final String INVALID_WORKSHOP = "There are no workshops in repository.";
 }

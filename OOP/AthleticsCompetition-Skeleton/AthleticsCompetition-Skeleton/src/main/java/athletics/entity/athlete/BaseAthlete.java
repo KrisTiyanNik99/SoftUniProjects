@@ -3,6 +3,8 @@ package athletics.entity.athlete;
 import static athletics.common.ExceptionMessages.INVALID_ATHLETE_NAME;
 
 public abstract class BaseAthlete implements Athlete {
+    protected static final int ADD_PERFORMANCE_VALUE = 1;
+
     private String name;
     private int stamina;
     private int performance;

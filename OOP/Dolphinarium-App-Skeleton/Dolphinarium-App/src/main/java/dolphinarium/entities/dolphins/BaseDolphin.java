@@ -1,17 +1,18 @@
 package dolphinarium.entities.dolphins;
 
-import dolphinarium.common.ExceptionMessages;
 import dolphinarium.entities.foods.Food;
 
+import static dolphinarium.common.ExceptionMessages.DOLPHIN_NAME_NULL_OR_EMPTY;
+
 public abstract class BaseDolphin implements Dolphin {
-    private static int DECREASED_ENERGY_VALUE = 10;
+    private static final int DECREASED_ENERGY_VALUE = 10;
 
     private String name;
     private int energy;
 
     public BaseDolphin(String name, int energy) {
         setName(name);
-        this.energy = energy;
+        setEnergy(energy);
     }
 
     @Override
@@ -19,9 +20,9 @@ public abstract class BaseDolphin implements Dolphin {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         if (name.isEmpty() || name.isBlank()) {
-            throw new NullPointerException(ExceptionMessages.DOLPHIN_NAME_NULL_OR_EMPTY);
+            throw new NullPointerException(DOLPHIN_NAME_NULL_OR_EMPTY);
         }
 
         this.name = name;
@@ -32,7 +33,7 @@ public abstract class BaseDolphin implements Dolphin {
         return energy;
     }
 
-    public void setEnergy(int energy) {
+    protected void setEnergy(int energy) {
         this.energy = Math.max(energy, 0);
     }
 
